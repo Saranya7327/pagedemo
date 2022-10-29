@@ -17,6 +17,14 @@ jobs:
 
       - name: Run a one-line script
         run: echo Hello from Saranya devi
+        
+      - name: Upload artifact
+        uses: actions/upload-artifact@main
+        with:
+         name: github-pages
+         path: ${{ runner.temp }}/artifact.tar
+         retention-days: ${{ inputs.retention-days }}
+        
       - name: Deploy Pages
         uses: actions/deploy-pages@v1
         with: 
