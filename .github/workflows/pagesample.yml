@@ -16,7 +16,7 @@ jobs:
       - name: Run a one-line script
         run: echo Hello from Saranya
       - name: Deploy Pages
-        uses: saranya7327/pagedemo/github-pages-deploy-action@v4
+        uses: pagedemo/actions-main@v3
         with: 
           branch: main
           folder: ./
