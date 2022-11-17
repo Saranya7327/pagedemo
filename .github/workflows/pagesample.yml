@@ -1,4 +1,4 @@
-name: Pgae Sample
+name: Updated Page Sample
 
 on:
   push:
@@ -14,19 +14,37 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      
+      
+       
 
-      - name: Run a one-line script
-        run: echo Hello from Saranya devi
+      - name: Add Artifact to publish
+        run: |
+         cd cucumber-reports/.
+          
+         
         
       - name: Upload artifact
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v2
         with:
-         name: github-pages
-         path: ${{ runner.temp }}/artifact.tar
-         retention-days: ${{ inputs.retention-days }}
-        
-      - name: Deploy Pages
-        uses: actions/deploy-pages@v1
-        with: 
-          branch: main
-          folder: ./cucumber-reports
+         name: Cucumber Reports
+         path: cucumber-reports/index.html
+         
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+          name: github-pages
+          url: ${{steps.deployment.outputs.page_url}}
+
+    steps:
+          - uses: actions/download-artifact@main
+            with:
+             name: Cucumber Reports
+             path: cucumber-reports/index.html
+          - uses: actions/configure-pages@v1
+          - uses: actions/upload-pages-artifact@v1
+            with:
+             path: cucumber-reports/index.html
+          - id: deployment
+            uses: actions/deploy-pages@main
