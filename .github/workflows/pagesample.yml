@@ -20,7 +20,7 @@ jobs:
 
       - name: Add Artifact to publish
         run: |
-         cd cucumber-reports/.
+         cd src/test/resources/cucumber-reports/.
           
          
         
